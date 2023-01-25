@@ -77,19 +77,19 @@ bool Context::Init() {
     glEnable(GL_MULTISAMPLE);
     m_box = Mesh::CreatBox();
 
-    m_simpleProgram = Program::Create("./shader/simple.vs", "./shader/simple.fs");
+    m_simpleProgram = Program::Create("../shader/simple.vs", "../shader/simple.fs");
     if (!m_simpleProgram)
         return false;
 
-    m_program = Program::Create("./shader/lighting.vs", "./shader/lighting.fs");
+    m_program = Program::Create("../shader/lighting.vs", "../shader/lighting.fs");
     if (!m_program)
         return false;
 
-    m_textureProgram = Program::Create("./shader/texture.vs", "./shader/texture.fs");
+    m_textureProgram = Program::Create("../shader/texture.vs", "../shader/texture.fs");
     if (!m_textureProgram)
         return false;
 
-    m_postProgram = Program::Create("./shader/texture.vs", "./shader/gamma.fs");
+    m_postProgram = Program::Create("../shader/texture.vs", "../shader/gamma.fs");
     if (!m_postProgram)
         return false;
 
@@ -99,29 +99,29 @@ bool Context::Init() {
     TexturePtr grayTexture = Texture::CreateFromImage(Image::CreateSingleColorImage(4, 4, glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)).get());
             
     m_planeMaterial = Material::Create();
-    m_planeMaterial->diffuse = Texture::CreateFromImage(Image::Load("./image/marble.jpg").get());
+    m_planeMaterial->diffuse = Texture::CreateFromImage(Image::Load("../image/marble.jpg").get());
     m_planeMaterial->specular = grayTexture;
     m_planeMaterial->shininess = 4.0f;
 
     m_box1Material = Material::Create();
-    m_box1Material->diffuse = Texture::CreateFromImage(Image::Load("./image/container.jpg").get());
+    m_box1Material->diffuse = Texture::CreateFromImage(Image::Load("../image/container.jpg").get());
     m_box1Material->specular = darkGrayTexture;
     m_box1Material->shininess = 16.0f;
 
     m_box2Material = Material::Create();
-    m_box2Material->diffuse = Texture::CreateFromImage(Image::Load("./image/container2.png").get());
-    m_box2Material->specular = Texture::CreateFromImage(Image::Load("./image/container2_specular.png").get());
+    m_box2Material->diffuse = Texture::CreateFromImage(Image::Load("../image/container2.png").get());
+    m_box2Material->specular = Texture::CreateFromImage(Image::Load("../image/container2_specular.png").get());
     m_box2Material->shininess = 64.0f;
 
     m_plane = Mesh::CreatePlane();
-    m_windowTexture = Texture::CreateFromImage(Image::Load("./image/blending_transparent_window.png").get());
+    m_windowTexture = Texture::CreateFromImage(Image::Load("../image/blending_transparent_window.png").get());
 
-    auto cubeRight = Image::Load("./image/skybox/right.jpg", false);
-    auto cubeLeft = Image::Load("./image/skybox/left.jpg", false);
-    auto cubeTop = Image::Load("./image/skybox/top.jpg", false);
-    auto cubeBottom = Image::Load("./image/skybox/bottom.jpg", false);
-    auto cubeFront = Image::Load("./image/skybox/front.jpg", false);
-    auto cubeBack = Image::Load("./image/skybox/back.jpg", false);
+    auto cubeRight = Image::Load("../image/skybox/right.jpg", false);
+    auto cubeLeft = Image::Load("../image/skybox/left.jpg", false);
+    auto cubeTop = Image::Load("../image/skybox/top.jpg", false);
+    auto cubeBottom = Image::Load("../image/skybox/bottom.jpg", false);
+    auto cubeFront = Image::Load("../image/skybox/front.jpg", false);
+    auto cubeBack = Image::Load("../image/skybox/back.jpg", false);
     m_cubeTexture = CubeTexture::CreateFromImages({
         cubeRight.get(),
         cubeLeft.get(),
@@ -130,11 +130,11 @@ bool Context::Init() {
         cubeFront.get(),
         cubeBack.get(),
     });
-    m_skyboxProgram = Program::Create("./shader/skybox.vs", "./shader/skybox.fs");
-    m_envMapProgram = Program::Create("./shader/env_map.vs", "./shader/env_map.fs"); 
+    m_skyboxProgram = Program::Create("../shader/skybox.vs", "../shader/skybox.fs");
+    m_envMapProgram = Program::Create("../shader/env_map.vs", "../shader/env_map.fs"); 
 
-    m_grassTexture = Texture::CreateFromImage(Image::Load("./image/grass.png").get());
-    m_grassProgram = Program::Create("./shader/grass.vs", "./shader/grass.fs");
+    m_grassTexture = Texture::CreateFromImage(Image::Load("../image/grass.png").get());
+    m_grassProgram = Program::Create("../shader/grass.vs", "../shader/grass.fs");
     m_grassPos.resize(10000);
     for (size_t i = 0; i < m_grassPos.size(); i++) {
         m_grassPos[i].x = ((float)rand() / (float)RAND_MAX * 2.0f - 1.0f) * 5.0f;
@@ -156,11 +156,11 @@ bool Context::Init() {
     m_plane->GetIndexBuffer()->Bind();
 
     m_shadowMap = ShadowMap::Create(1024, 1024);
-    m_lightingShadowProgram = Program::Create("./shader/lighting_shadow.vs", "./shader/lighting_shadow.fs");
+    m_lightingShadowProgram = Program::Create("../shader/lighting_shadow.vs", "../shader/lighting_shadow.fs");
 
-    m_brickDiffuseTexture = Texture::CreateFromImage(Image::Load("./image/brickwall.jpg", false).get());
-    m_brickNormalTexture = Texture::CreateFromImage(Image::Load("./image/brickwall_normal.jpg", false).get());
-    m_normalProgram = Program::Create("./shader/normal.vs", "./shader/normal.fs");
+    m_brickDiffuseTexture = Texture::CreateFromImage(Image::Load("../image/brickwall.jpg", false).get());
+    m_brickNormalTexture = Texture::CreateFromImage(Image::Load("../image/brickwall_normal.jpg", false).get());
+    m_normalProgram = Program::Create("../shader/normal.vs", "../shader/normal.fs");
 
     return true;
 }
