@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(PROJECT_NAME cmake_project_example)
+set(PROJECT_NAME Daram)
 set(CMAKE_CXX_STANDARD 17)
 
 set(WINDOW_NAME "Daram")
@@ -10,7 +10,7 @@ set(WINDOW_HEIGHT 540)
 project(${PROJECT_NAME})
 
 #metal-cpp
-add_subdirectory(metal-cmake)  # Library definition
+#add_subdirectory(metal-cmake)  # Library definition
 add_subdirectory(src)  # Add targets
 
 add_executable(${PROJECT_NAME} 
@@ -44,3 +44,21 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
 
 # Dependency들이 먼저 build 될 수 있게 관계 설정
 add_dependencies(${PROJECT_NAME} ${DEP_LIST})
+
+# Library definition
+add_library(METAL_CPP ${CMAKE_CURRENT_SOURCE_DIR}/metal-cmake/defination.cpp)
+
+# Metal cpp headers
+target_include_directories(METAL_CPP PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/metal-cmake/metal-cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/metal-cmake/metal-cpp-extensions"
+)
+
+# Metal cpp library (linker)
+target_link_libraries(METAL_CPP
+        "-framework Metal"
+        "-framework MetalKit"
+        "-framework AppKit"
+        "-framework Foundation"
+        "-framework QuartzCore"
+)
