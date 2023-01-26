@@ -8,6 +8,11 @@ set(WINDOW_WIDTH 960)
 set(WINDOW_HEIGHT 540)
 
 project(${PROJECT_NAME})
+
+#metal-cpp
+add_subdirectory(metal-cmake)  # Library definition
+add_subdirectory(src)  # Add targets
+
 add_executable(${PROJECT_NAME} 
     src/main.cpp
     src/common.cpp src/common.h

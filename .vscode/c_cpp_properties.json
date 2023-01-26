@@ -3,7 +3,8 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/metal-cmake/metal-cpp"
             ],
             "defines": [],
             "macFrameworkPath": [
