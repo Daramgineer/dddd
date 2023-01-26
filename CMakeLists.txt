@@ -10,8 +10,8 @@ set(WINDOW_HEIGHT 540)
 project(${PROJECT_NAME})
 
 #metal-cpp
-#add_subdirectory(metal-cmake)  # Library definition
-add_subdirectory(src)  # Add targets
+#add_subdirectory(metal-cmake)  # Library definition, 아래서 [current source dir/metal-cmake로 대체]
+add_subdirectory(src)  # Add metal api targets (learn-metal)
 
 add_executable(${PROJECT_NAME} 
     src/main.cpp
