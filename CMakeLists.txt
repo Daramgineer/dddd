@@ -64,7 +64,7 @@ target_link_libraries(METAL_CPP
 # Get all project dir
 FILE(GLOB sample_projects ${CMAKE_CURRENT_SOURCE_DIR}/src/learn-metal/*) #metal api target dir(learn-metal)
 
-# For each project dir, build a target
+# For each project dir, build a target (src/learn-metal에 있는 cpp를 모두 빌드함)
 FOREACH(project ${sample_projects})
     IF(IS_DIRECTORY ${project})
         # Get project name and all sources
