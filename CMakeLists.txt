@@ -9,10 +9,6 @@ set(WINDOW_HEIGHT 540)
 
 project(${PROJECT_NAME})
 
-#metal-cpp
-#add_subdirectory(metal-cmake)  # Library definition, 아래서 [current source dir/metal-cmake로 대체]
-add_subdirectory(src)  # Add metal api targets (learn-metal)
-
 add_executable(${PROJECT_NAME} 
     src/main.cpp
     src/common.cpp src/common.h
@@ -45,6 +41,8 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC
 # Dependency들이 먼저 build 될 수 있게 관계 설정
 add_dependencies(${PROJECT_NAME} ${DEP_LIST})
 
+
+# metal cpp 
 # Library definition
 add_library(METAL_CPP ${CMAKE_CURRENT_SOURCE_DIR}/metal-cmake/defination.cpp)
 
@@ -62,3 +60,21 @@ target_link_libraries(METAL_CPP
         "-framework Foundation"
         "-framework QuartzCore"
 )
+
+# Get all project dir
+FILE(GLOB sample_projects ${CMAKE_CURRENT_SOURCE_DIR}/src/learn-metal/*) #metal api target dir(learn-metal)
+
+# For each project dir, build a target
+FOREACH(project ${sample_projects})
+    IF(IS_DIRECTORY ${project})
+        # Get project name and all sources
+        get_filename_component(project-name ${project} NAME)
+        FILE(GLOB ${project}-src ${project}/*.cpp)
+
+        # Create executable and link target
+        add_executable(${project-name} ${${project}-src})
+        target_link_libraries(${project-name} METAL_CPP)
+
+        message(STATUS "Adding ${project-name}")
+    ENDIF()
+ENDFOREACH()
